@@ -41,7 +41,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $secret_key = "owt125";
 
-            $decoded_data = JWT::decode($headers['Authorization'], $secret_key, array("HS512"));
+            $decoded_data = 
+                    JWT::decode($headers['Authorization'], $secret_key, array("HS512"));
 
             $user_obj->user_id             =    $decoded_data->data->id;
             $user_obj->project_name        =    $data->project_name;
@@ -64,18 +65,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ));
     
             }
-        } catch (Exception $e) {
-            http_response_code(503);
+        } catch (Exception $ex) {
+            http_response_code(404);
             echo json_encode(array(
-                'status' => http_response_code(503),
+                'status' => http_response_code(404),
                 'message' => $ex->getMessage(),
             ));
         }
                 
     } else {
-        http_response_code(404);
+        http_response_code(203);
         echo json_encode(array(
-            'status' => http_response_code(404),
+            'status' => http_response_code(203),
             'message' => 'All Data needed.'
         ));
     }

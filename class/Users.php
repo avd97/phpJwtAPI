@@ -120,6 +120,37 @@ class Users {
 
     }
 
+    // used to list of peojrcts
+    public function getAllProjects() {
+
+        $projectQry = "SELECT * FROM ".$this->project_table." ORDER BY id DESC";
+
+        $project_obj = $this->conn->prepare($projectQry);
+
+        $project_obj->execute();
+
+        // return $project_obj->fetch(PDO::FETCH_ASSOC);
+        // return $project_obj->fetchAll();
+        return $project_obj;
+    }
+
+
+    
+    public function getUsersAllProjects() {
+
+        $projectQry = "SELECT * FROM ".$this->project_table." WHERE user_id = ? ORDER BY id DESC";
+
+        $project_obj = $this->conn->prepare($projectQry);
+
+        $project_obj->bindParam(1, $this->user_id);
+
+        $project_obj->execute();
+
+        // return $project_obj->fetch(PDO::FETCH_ASSOC);
+        // return $project_obj->fetchAll();
+        return $project_obj;
+    }
+
 }
 
 ?>
